@@ -50,6 +50,7 @@ int main(void)
         fflush(stdout);
 
         if(r == 0) {
+            if(background != 1)
             printf("Running Child Process with PID: %d\n", (int) getpid());
             execvp(args[0],args);
             fprintf(stderr, "Child process could not do execvp.\n");
@@ -57,8 +58,11 @@ int main(void)
         } else if (r > 0) {
 
             if(background != 1) { //& was not entered
+                printf("Parent: waiting for child\n");
                 pid_t c = wait(&status); /* Wait for child to complete. */
-            }
+                printf("Parent: Child %d exited with status: %d\n",c,status);
+            } else
+                printf("Child running in background\n");
 
         } else {
             fprintf(stderr, "Fork failed.\n"); exit(1);
