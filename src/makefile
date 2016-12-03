@@ -7,7 +7,7 @@ SOURCES=main.c
 
 OBJECTS=$(SOURCES:.cpp=.o)
 # Name of the executable (target) file goes here
-EXECUTABLE=simpleshel
+EXECUTABLE=simpleshell
 
 all: $(SOURCES) $(EXECUTABLE)
 	

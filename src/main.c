@@ -47,12 +47,22 @@ int main(void)
          */
 
         int r = fork();
+        
         if(r == 0) {
-            
+            printf("Running Child Process with PID: %d", (int) getpid());
+            execvp(args[0],args);
+            fprintf(stderr, "Child process could not do execvp.\n");
+            exit(1);
         } else if (r > 0) {
 
+            if(background == 1) { //& was entered
+                printf("& was entered, Child process is currently running is background while parent waits\n");
+                pid_t c = wait(&status); /* Wait for child to complete. */
+                printf("Parent: Child  %ld exited with status = %d\n", (long) c, status);
+            }
+
         } else {
-            
+            fprintf(stderr, "Fork failed.\n"); exit(1);
         }
 
         
