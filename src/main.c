@@ -57,12 +57,15 @@ int main(void)
             exit(1);
         } else if (r > 0) {
 
-            if(background != 1) { //& was not entered
+            if(background == 0) { //& was not entered
                 printf("Parent: waiting for child\n");
                 pid_t c = wait(&status); /* Wait for child to complete. */
                 printf("Parent: Child %d exited with status: %d\n",c,status);
-            } else
-                printf("Child running in background\n");
+            } else {
+                printf("COMMAND-> ");
+                fflush(stdout);
+                setup(inputBuffer, args, &background);
+            }
 
         } else {
             fprintf(stderr, "Fork failed.\n"); exit(1);
